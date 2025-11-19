@@ -1,0 +1,35 @@
+class VirtualMachine:
+    def __init__(self, os_name, user_name):
+        self.os = os_name
+        self.user = user_name
+        self.state = "Stopped"
+
+    def start(self):
+        self.state = "Running"
+        print(f"{self.os} VM started by {self.user}.")
+
+    def stop(self):
+        self.state = "Stopped"
+        print(f"{self.os} VM stopped by {self.user}.")
+
+    def info(self):
+        return f"User: {self.user}, OS: {self.os}, State: {self.state}"
+
+
+class KVM_Hypervisor:
+    def __init__(self):
+        self.vms = []
+
+    def create_vm(self, os_name, user_name):
+        vm = VirtualMachine(os_name, user_name)
+        self.vms.append(vm)
+        print(f"{os_name} VM created on KVM for user {user_name}.")
+        return vm
+
+
+# Main Program
+hypervisor = KVM_Hypervisor()
+vm1 = hypervisor.create_vm("Ubuntu", "Omkar")
+
+vm1.start()
+print(vm1.info())
